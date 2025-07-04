@@ -6,7 +6,7 @@ namespace RealEstate.Infrastructure.Configurations;
 
 public class PropertyConfiguration: BaseEntityConfiguration<Property>
 {
-    public void Configure(EntityTypeBuilder<Property> builder)
+    public override void Configure(EntityTypeBuilder<Property> builder)
     {
         base.Configure(builder);
         

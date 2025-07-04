@@ -6,7 +6,7 @@ namespace RealEstate.Infrastructure.Configurations;
 
 public class ReviewConfiguration: BaseEntityConfiguration<Review>
 {
-    public void Configure(EntityTypeBuilder<Review> builder)
+    public override void Configure(EntityTypeBuilder<Review> builder)
     {
         base.Configure(builder);
         

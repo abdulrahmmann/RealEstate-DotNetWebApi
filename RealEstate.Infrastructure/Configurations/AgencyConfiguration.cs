@@ -6,7 +6,7 @@ namespace RealEstate.Infrastructure.Configurations;
 
 public class AgencyConfiguration: BaseEntityConfiguration<Agency>
 {
-    public void Configure(EntityTypeBuilder<Agency> builder)
+    public override void Configure(EntityTypeBuilder<Agency> builder)
     {
         base.Configure(builder);
         

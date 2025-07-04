@@ -6,7 +6,7 @@ namespace RealEstate.Infrastructure.Configurations;
 
 public class CategoryConfiguration: BaseEntityConfiguration<Category>
 {
-    public void Configure(EntityTypeBuilder<Category> builder)
+    public override void Configure(EntityTypeBuilder<Category> builder)
     {
         base.Configure(builder);
         
