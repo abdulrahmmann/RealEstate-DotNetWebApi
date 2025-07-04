@@ -1,6 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate", "RealEstate\RealEstate.csproj", "{EB1FA76B-E6C1-4876-A9B0-9C7AE00E81DB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Api", "RealEstate.Api\RealEstate.Api.csproj", "{EB1FA76B-E6C1-4876-A9B0-9C7AE00E81DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Domain", "RealEstate.Domain\RealEstate.Domain.csproj", "{A9FD277C-D456-44D1-8543-30DA729293E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Application", "RealEstate.Application\RealEstate.Application.csproj", "{6AAD6144-3760-42E1-8701-4C9AB0D1834B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RealEstate.Infrastructure", "RealEstate.Infrastructure\RealEstate.Infrastructure.csproj", "{BFE75530-D002-4449-BE98-86C3235582C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -12,5 +18,17 @@ Global
 		{EB1FA76B-E6C1-4876-A9B0-9C7AE00E81DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB1FA76B-E6C1-4876-A9B0-9C7AE00E81DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB1FA76B-E6C1-4876-A9B0-9C7AE00E81DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9FD277C-D456-44D1-8543-30DA729293E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9FD277C-D456-44D1-8543-30DA729293E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9FD277C-D456-44D1-8543-30DA729293E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9FD277C-D456-44D1-8543-30DA729293E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AAD6144-3760-42E1-8701-4C9AB0D1834B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AAD6144-3760-42E1-8701-4C9AB0D1834B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AAD6144-3760-42E1-8701-4C9AB0D1834B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AAD6144-3760-42E1-8701-4C9AB0D1834B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFE75530-D002-4449-BE98-86C3235582C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFE75530-D002-4449-BE98-86C3235582C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFE75530-D002-4449-BE98-86C3235582C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFE75530-D002-4449-BE98-86C3235582C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
