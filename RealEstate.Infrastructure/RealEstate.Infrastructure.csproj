@@ -24,8 +24,4 @@
       <ProjectReference Include="..\RealEstate.Domain\RealEstate.Domain.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Configurations\" />
-    </ItemGroup>
-
 </Project>

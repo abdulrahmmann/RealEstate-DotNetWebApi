@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using RealEstate.Domain.Entities;
+using RealEstate.Infrastructure.Configurations;
 
 namespace RealEstate.Infrastructure.Context;
 
@@ -27,6 +28,11 @@ public class ApplicationContext: IdentityDbContext<User, IdentityRole<int>, int>
     {
         base.OnModelCreating(builder);
         
-        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
+        builder.ApplyConfiguration(new AgencyConfiguration());
+        builder.ApplyConfiguration(new AgentConfiguration());
+        builder.ApplyConfiguration(new PropertyConfiguration());
+        builder.ApplyConfiguration(new UserConfiguration());
+        builder.ApplyConfiguration(new CategoryConfiguration());
+        builder.ApplyConfiguration(new ReviewConfiguration());
     }
 }
