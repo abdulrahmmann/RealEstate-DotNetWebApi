@@ -1,0 +1,32 @@
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using RealEstate.Domain.Entities;
+
+namespace RealEstate.Infrastructure.Context;
+
+public class ApplicationContext: IdentityDbContext<User, IdentityRole<int>, int>
+{
+    public virtual DbSet<User> Users { get; set; }
+    
+    public virtual DbSet<Property> Properties { get; set; }
+    
+    public virtual DbSet<Agent> Agents { get; set; }
+    
+    public virtual DbSet<Agency> Agencies { get; set; }
+    
+    public virtual DbSet<Category> Categories { get; set; }
+    
+    public virtual DbSet<Review> Reviews { get; set; }
+
+    protected ApplicationContext() { }
+    
+    public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        
+        builder.ApplyConfigurationsFromAssembly(typeof(ApplicationContext).Assembly);
+    }
+}

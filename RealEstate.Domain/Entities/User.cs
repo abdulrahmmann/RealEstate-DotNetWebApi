@@ -5,15 +5,15 @@ namespace RealEstate.Domain.Entities;
 
 public class User: IdentityUser<int>
 {
-    public required string Gender { get; set; }    
+    public string Gender { get; init; } = null!;     
     
-    public DateOnly BirthDate { get; set; }
+    public DateOnly BirthDate { get; init; }
 
-    public Address Address { get; set; } = null!;
+    public Address Address { get; init; } = null!;
     
-    public int? AgentId { get; set; }       
+    public int? AgentId { get; init; }
     
-    public Agent? Agent { get; set; }
+    public Agent? Agent { get; init; } 
 
     public ICollection<Review> Reviews { get; set; } = [];
 }

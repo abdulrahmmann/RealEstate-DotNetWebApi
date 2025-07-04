@@ -14,10 +14,17 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="Scalar.AspNetCore" Version="2.5.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\RealEstate.Application\RealEstate.Application.csproj" />
+      <ProjectReference Include="..\RealEstate.Domain\RealEstate.Domain.csproj" />
+      <ProjectReference Include="..\RealEstate.Infrastructure\RealEstate.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

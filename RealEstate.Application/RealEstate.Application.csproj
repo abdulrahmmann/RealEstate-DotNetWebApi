@@ -13,4 +13,9 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.6" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RealEstate.Domain\RealEstate.Domain.csproj" />
+      <ProjectReference Include="..\RealEstate.Infrastructure\RealEstate.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>

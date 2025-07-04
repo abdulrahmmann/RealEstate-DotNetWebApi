@@ -20,4 +20,12 @@
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0-preview.5.25277.114" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\RealEstate.Domain\RealEstate.Domain.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Configurations\" />
+    </ItemGroup>
+
 </Project>
