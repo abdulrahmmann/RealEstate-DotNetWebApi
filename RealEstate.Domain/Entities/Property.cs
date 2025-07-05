@@ -7,18 +7,21 @@ namespace RealEstate.Domain.Entities;
 public class Property: BaseEntity
 {
     public string Name { get; set; } = null!;
-
+    
     public string Description { get; set; } = null!;
     
     public PropertyType Type { get; set; }    
     
     public PropertyStatus Status { get; set; } 
     
-    public decimal Price { get; set; }      
+    public decimal Price { get; set; }    
+    
     
     public double? Rating { get; set; }     
     
+    
     public DateTime ListedDate { get; set; }
+    
     
     public List<string> ImageUrls { get; set; } = []; 
     

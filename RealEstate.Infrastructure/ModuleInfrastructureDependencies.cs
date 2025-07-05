@@ -15,6 +15,9 @@ public static class ModuleInfrastructureDependencies
         // REGISTER UNIT OF WORK    
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
+        // REGISTER REPOSITORIES    
+        services.AddTransient<IPropertyRepository, PropertyRepository>();
+        
         return services;
     }
 }
