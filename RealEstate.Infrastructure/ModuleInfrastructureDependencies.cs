@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RealEstate.Domain.IRepository;
 using RealEstate.Infrastructure.Repository;
+using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Infrastructure;
 
@@ -10,6 +11,9 @@ public static class ModuleInfrastructureDependencies
     {
         // REGISTER GENERIC REPOSITORY  
         services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        
+        // REGISTER UNIT OF WORK    
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         
         return services;
     }
