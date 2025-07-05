@@ -48,8 +48,8 @@ public class PropertyRepository: GenericRepository<Property>, IPropertyRepositor
 
     public IQueryable<Property> SearchPropertyByListedDate(DateOnly listedDate)
     {
-        // since the ListedDate on Properties Entity is DateTime.
-        // and i want to search as a DateOnly.
+        // since the ListedDate in Properties Entity is DateTime.
+        // and I want to search as a DateOnly.
         // converting from DateOnly to DateTime.
         var startDate = listedDate.ToDateTime(TimeOnly.MinValue);
         var endDate = startDate.AddDays(1);
