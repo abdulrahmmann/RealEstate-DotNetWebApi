@@ -1,38 +1,24 @@
-using System.Net;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using RealEstate.Application.Common;
+using RealEstate.Application.Features.AgencyFeature.Commands;
+using RealEstate.Application.Features.AgencyFeature.DTOs;
 
 namespace RealEstate.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AgencyController : ControllerBase
+    public class AgencyController : AppControllerBase
     {
-        #region Mediator Instance
-        
-        private IMediator? _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>()!;
-        
-        #endregion
-        
-        
-        #region Standardized Response Handler
-        protected ObjectResult NewResult<T>(BaseResponse<T> response)
+        [HttpPost()]
+        public async Task<IActionResult> AddAgency([FromBody] AgencyDto agencyDto)
         {
-            return response.HttpStatusCode switch
+            if (!ModelState.IsValid)
             {
-                HttpStatusCode.OK => Ok(response),
-                HttpStatusCode.Created => Created(string.Empty, response),
-                HttpStatusCode.Unauthorized => Unauthorized(response),
-                HttpStatusCode.BadRequest => BadRequest(response),
-                HttpStatusCode.NotFound => NotFound(response),
-                HttpStatusCode.Accepted => Accepted(response),
-                HttpStatusCode.UnprocessableEntity => UnprocessableEntity(response),
-                HttpStatusCode.Conflict => Conflict(response),
-                _ => StatusCode((int)response.HttpStatusCode, response)
-            };
+                return BadRequest();
+            }
+
+            var result = await Mediator.Send(new AddAgencyCommand(agencyDto));
+
+            return Ok(result);
         }
-        #endregion
     }
 }

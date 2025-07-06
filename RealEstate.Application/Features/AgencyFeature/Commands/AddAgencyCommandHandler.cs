@@ -3,7 +3,6 @@ using MediatR;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
 using RealEstate.Domain.Entities;
-using RealEstate.Infrastructure.Repository;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgencyFeature.Commands;

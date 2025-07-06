@@ -3,9 +3,9 @@ using RealEstate.Application.Features.AgencyFeature.DTOs;
 
 namespace RealEstate.Application.Features.AgencyFeature.Validation;
 
-public abstract class AddAgencyValidator: AbstractValidator<AgencyDto>
+public class AddAgencyValidator: AbstractValidator<AgencyDto>
 {
-    protected AddAgencyValidator()
+    public AddAgencyValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Agency name is required.")

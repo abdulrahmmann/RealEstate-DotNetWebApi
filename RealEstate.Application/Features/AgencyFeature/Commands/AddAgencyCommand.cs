@@ -4,4 +4,4 @@ using RealEstate.Application.Features.AgencyFeature.DTOs;
 
 namespace RealEstate.Application.Features.AgencyFeature.Commands;
 
-public abstract record AddAgencyCommand(AgencyDto AgencyDto): IRequest<BaseResponse<int>>;
+public record AddAgencyCommand(AgencyDto AgencyDto): IRequest<BaseResponse<int>>;
