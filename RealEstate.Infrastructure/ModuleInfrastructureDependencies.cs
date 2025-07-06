@@ -9,14 +9,16 @@ public static class ModuleInfrastructureDependencies
 {
     public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
     {
-        // REGISTER GENERIC REPOSITORY  
-        services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        
         // REGISTER UNIT OF WORK    
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         
+        // REGISTER GENERIC REPOSITORY  
+        services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        
         // REGISTER REPOSITORIES    
-        services.AddTransient<IPropertyRepository, PropertyRepository>();
+        services.AddScoped<IPropertyRepository, PropertyRepository>();
+        services.AddScoped<IAgentRepository, AgentRepository>();
+        services.AddScoped<IAgencyRepository, AgencyRepository>();
         
         return services;
     }

@@ -1,0 +1,29 @@
+﻿using RealEstate.Domain.Entities;
+
+namespace RealEstate.Domain.IRepository;
+
+public interface IAgentRepository: IGenericRepository<Agent>
+{
+    #region GET METHODS
+    IQueryable<Agent> SearchAgentByName(string name);
+    
+    Task<Agent> GetAgentByEmail(string email);
+    
+    Task<Agent> GetAgentByPhone(string phone);
+    #endregion
+    
+    
+    #region POST METHODS
+    Task AddAgentRange(IEnumerable<Agent> agents);
+    #endregion
+    
+
+    #region PUT METHODS
+    
+    #endregion
+    
+    
+    #region DELETE METHODS
+    
+    #endregion
+}

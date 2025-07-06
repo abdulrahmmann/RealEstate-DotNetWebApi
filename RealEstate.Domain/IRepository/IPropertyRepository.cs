@@ -23,13 +23,16 @@ public interface IPropertyRepository: IGenericRepository<Property>
     IQueryable<Property> SearchPropertyByCity(string city);
     #endregion
     
+    
     #region POST METHODS
     
     #endregion
+    
 
     #region PUT METHODS
     
     #endregion
+    
     
     #region DELETE METHODS
     
