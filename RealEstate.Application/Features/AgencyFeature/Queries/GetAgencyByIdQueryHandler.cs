@@ -31,8 +31,10 @@ public class GetAgencyByIdQueryHandler: IRequestHandler<GetAgencyByIdQuery, Base
             }
 
             var agencyDto = new AgencyDto(agency.Name, agency.LicenseNumber, agency.TaxNumber);
+            
+            var totalCount = await _unitOfWork.GetRepository<Agency>().GetTotalCountAsync();
 
-            return BaseResponse<AgencyDto>.Success(agencyDto, $"Agency By Id: {request.Id} Retrieved Successfully");
+            return BaseResponse<AgencyDto>.Success(agencyDto, $"Agency By Id: {request.Id} Retrieved Successfully", totalCount);
         }
         catch (Exception e)
         {

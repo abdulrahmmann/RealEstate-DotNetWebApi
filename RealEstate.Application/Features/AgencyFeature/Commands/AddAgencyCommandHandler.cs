@@ -42,6 +42,8 @@ public class AddAgencyCommandHandler: IRequestHandler<AddAgencyCommand, BaseResp
                 TaxNumber = request.AgencyDto.TaxNumber
             };
 
+            // var totalCount = await _unitOfWork.GetRepository<Agency>().GetTotalCountAsync();
+
             await _unitOfWork.GetRepository<Agency>().AddAsync(agency);
         
             await _unitOfWork.SaveChangesAsync();

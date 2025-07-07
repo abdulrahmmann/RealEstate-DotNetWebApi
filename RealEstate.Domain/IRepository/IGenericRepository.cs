@@ -16,4 +16,6 @@ public interface IGenericRepository<T> where T : class
     void Delete(int id);
 
     void Save();
+    
+    Task<int> GetTotalCountAsync();
 }

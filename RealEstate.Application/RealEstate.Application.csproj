@@ -35,8 +35,6 @@
       <Folder Include="Features\ReviewFeature\DTOs\" />
       <Folder Include="Features\ReviewFeature\Queries\" />
       <Folder Include="Features\ReviewFeature\Validation\" />
-      <Folder Include="Features\UserFeature\Commands\" />
-      <Folder Include="Features\UserFeature\DTOs\" />
       <Folder Include="Features\UserFeature\Queries\" />
       <Folder Include="Features\UserFeature\Validation\" />
     </ItemGroup>

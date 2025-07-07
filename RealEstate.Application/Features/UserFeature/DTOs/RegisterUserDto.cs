@@ -1,0 +1,3 @@
+﻿namespace RealEstate.Application.Features.UserFeature.DTOs;
+
+public record RegisterUserDto(string Email, string UserName, string Password, DateOnly DateOfBirth, string PhoneNumber);

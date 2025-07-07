@@ -51,4 +51,9 @@ public class GenericRepository<T>: IGenericRepository<T> where T : class
     {
         _dbContext.SaveChanges();
     }
+
+    public async Task<int> GetTotalCountAsync()
+    {
+        return await _dbSet.CountAsync();
+    }
 }

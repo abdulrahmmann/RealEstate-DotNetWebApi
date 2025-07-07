@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
+using RealEstate.Domain.Entities;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgencyFeature.Queries;
@@ -31,7 +32,9 @@ public class SearchAgencyByNameQueryHandler: IRequestHandler<SearchAgencyByNameQ
 
             var agenciesDto = agencies.Select(a => new AgencyDto(a.Name, a.LicenseNumber, a.TaxNumber));
             
-            return BaseResponse<IQueryable<AgencyDto>>.Success(agenciesDto);
+            var totalCount = await _unitOfWork.GetRepository<Agency>().GetTotalCountAsync();
+            
+            return BaseResponse<IQueryable<AgencyDto>>.Success(agenciesDto, "Searched Agencies Retrieved Successfully", totalCount);
         }
         catch (Exception e)
         {
