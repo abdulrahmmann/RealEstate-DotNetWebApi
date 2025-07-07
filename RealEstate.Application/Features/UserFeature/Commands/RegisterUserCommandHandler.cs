@@ -62,7 +62,7 @@ public class RegisterUserCommandHandler: IRequestHandler<RegisterUserCommand, Au
                 PhoneNumber = user.PhoneNumber,
                 BirthDate = user.DateOfBirth,
                 Gender = user.Gender,
-                Address = new Address(user.Country, user.City),
+                Address = new Address(user.Country, user.City, user.Street, user.ZipCode),
             };
 
             var isCreated = await _userManager.CreateAsync(newUser, user.Password);
