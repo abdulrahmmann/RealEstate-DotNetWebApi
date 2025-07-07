@@ -36,7 +36,6 @@
       <Folder Include="Features\ReviewFeature\Queries\" />
       <Folder Include="Features\ReviewFeature\Validation\" />
       <Folder Include="Features\UserFeature\Queries\" />
-      <Folder Include="Features\UserFeature\Validation\" />
     </ItemGroup>
 
 </Project>

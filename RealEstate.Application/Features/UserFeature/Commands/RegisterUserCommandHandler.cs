@@ -1,8 +1,10 @@
 ﻿using System.Net;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using RealEstate.Application.Common;
+using RealEstate.Application.Features.UserFeature.DTOs;
 using RealEstate.Application.helper;
 using RealEstate.Domain.Entities;
 using RealEstate.Domain.ValueObjects;
@@ -14,13 +16,15 @@ public class RegisterUserCommandHandler: IRequestHandler<RegisterUserCommand, Au
     #region Instance Fields
     private readonly UserManager<User>  _userManager;
     private readonly IConfiguration  _configuration;
+    private readonly IValidator<RegisterUserDto> _validator;
     #endregion
     
     #region Constructor
-    public RegisterUserCommandHandler(UserManager<User> userManager, IConfiguration configuration)
+    public RegisterUserCommandHandler(UserManager<User> userManager, IConfiguration configuration, IValidator<RegisterUserDto> validator)
     {
         _userManager = userManager;
         _configuration = configuration;
+        _validator = validator;
     }
     #endregion
     
@@ -29,6 +33,14 @@ public class RegisterUserCommandHandler: IRequestHandler<RegisterUserCommand, Au
         try
         {
             var user = request.UserDto;
+
+            var validationResult = await _validator.ValidateAsync(user, cancellationToken);
+
+            if (!validationResult.IsValid)
+            {
+                var validationErrors = validationResult.Errors.Select(e => e.ErrorMessage).ToList();
+                return new AuthResponse(string.Empty, false, $"Validation Error: {validationErrors}", HttpStatusCode.UnprocessableEntity);
+            }
             
             var isEmailExist = await _userManager.FindByEmailAsync(user.Email);
             var isUsernameExist = await _userManager.FindByNameAsync(user.UserName);
@@ -55,14 +67,14 @@ public class RegisterUserCommandHandler: IRequestHandler<RegisterUserCommand, Au
 
             var isCreated = await _userManager.CreateAsync(newUser, user.Password);
 
-            if (isCreated.Succeeded)
+            if (!isCreated.Succeeded)
             {
-                var generatedToken = JwtTokenHelper.GenerateJwtToken(newUser, _configuration);
-                
-                return new AuthResponse(generatedToken, true, "User Registration Success!", HttpStatusCode.OK);
+                return new AuthResponse(string.Empty, false, "User Registration Failed!", HttpStatusCode.InternalServerError);
             }
             
-            return new AuthResponse(string.Empty, false, "User Registration Failed!", HttpStatusCode.InternalServerError);
+            var generatedToken = JwtTokenHelper.GenerateJwtToken(newUser, _configuration);
+                
+            return new AuthResponse(generatedToken, true, "User Registration Success!", HttpStatusCode.OK);
         }
         catch (Exception e)
         {
