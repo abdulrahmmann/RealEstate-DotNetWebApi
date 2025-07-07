@@ -34,5 +34,31 @@ namespace RealEstate.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("id")]
+        public async Task<IActionResult> GetAgencyById(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await Mediator.Send(new GetAgencyByIdQuery(id));
+
+            return Ok(result);
+        }
+
+        [HttpGet("name")]
+        public async Task<IActionResult> SearchAgenciesByName(string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+            
+            var result = await Mediator.Send(new SearchAgencyByNameQuery(name));
+
+            return Ok(result);
+        }
     }
 }

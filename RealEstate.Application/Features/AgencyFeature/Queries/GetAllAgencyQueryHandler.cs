@@ -36,7 +36,7 @@ public class GetAllAgencyQueryHandler: IRequestHandler<GetAllAgencyQuery, BaseRe
         }
         catch (Exception e)
         {
-            Console.WriteLine("Add Agency Command Handler Error: " + e.Message);
+            Console.WriteLine("GetAllAgency Query Handler Error: " + e.Message);
             return BaseResponse<IEnumerable<AgencyDto>>.InternalError();
         }
     }

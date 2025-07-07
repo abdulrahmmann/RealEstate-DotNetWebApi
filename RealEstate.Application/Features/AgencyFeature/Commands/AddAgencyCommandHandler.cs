@@ -50,7 +50,7 @@ public class AddAgencyCommandHandler: IRequestHandler<AddAgencyCommand, BaseResp
         }
         catch (Exception e)
         {
-             
+            Console.WriteLine("Add Agency Command Handler Error: " + e.Message);
             return BaseResponse<int>.InternalError();
         }
     }
