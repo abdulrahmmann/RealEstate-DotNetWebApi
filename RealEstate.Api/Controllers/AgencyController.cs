@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RealEstate.Application.Features.AgencyFeature.Commands;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
+using RealEstate.Application.Features.AgencyFeature.Queries;
 
 namespace RealEstate.Controllers
 {
@@ -17,6 +18,19 @@ namespace RealEstate.Controllers
             }
 
             var result = await Mediator.Send(new AddAgencyCommand(agencyDto));
+
+            return Ok(result);
+        }
+
+        [HttpGet()]
+        public async Task<IActionResult> GetAllAgencies()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            var result = await Mediator.Send(new GetAllAgencyQuery());
 
             return Ok(result);
         }
