@@ -19,10 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\AgentFeature\Commands\" />
-      <Folder Include="Features\AgentFeature\DTOs\" />
-      <Folder Include="Features\AgentFeature\Queries\" />
-      <Folder Include="Features\AgentFeature\Validation\" />
       <Folder Include="Features\CategoryFeature\Commands\" />
       <Folder Include="Features\CategoryFeature\DTOs\" />
       <Folder Include="Features\CategoryFeature\Queries\" />

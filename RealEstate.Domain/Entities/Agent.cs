@@ -15,15 +15,15 @@ public class Agent: BaseEntity
     
     public string ImageUrl { get; set; } = null!;    
     
-    // VALUE OBJECTS
     
+    // VALUE OBJECTS
     public Address Address { get; set; } = null!; 
     
-    // FOREIGN KEYS && NAVIGATIONS
     
-    public int AgencyId { get; set; } 
+    // FOREIGN KEYS && NAVIGATIONS
+    public int? AgencyId { get; set; } 
 
-    public Agency Agency { get; set; } = null!;
+    public Agency? Agency { get; set; } 
 
     public ICollection<Property> Properties { get; set; } = [];
     
