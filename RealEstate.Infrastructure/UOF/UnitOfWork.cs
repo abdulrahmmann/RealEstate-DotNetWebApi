@@ -10,14 +10,17 @@ public class UnitOfWork: IUnitOfWork
     private readonly ApplicationContext  _dbContext;
     private readonly Dictionary<Type, object> _repositories;
     public IAgencyRepository GetAgencyRepository { get; }
+    
+    public ApplicationContext Context { get; }
 
     #endregion
 
     #region Constructor
-    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository)
+    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository, ApplicationContext context)
     {
         _dbContext = dbContext;
         GetAgencyRepository = getAgencyRepository;
+        Context = context;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion
@@ -34,6 +37,7 @@ public class UnitOfWork: IUnitOfWork
 
         return (IGenericRepository<T>)_repositories[type];
     }
+    
     public void SaveChanges() => _dbContext.SaveChanges();
 
     public async Task SaveChangesAsync() => await _dbContext.SaveChangesAsync();
