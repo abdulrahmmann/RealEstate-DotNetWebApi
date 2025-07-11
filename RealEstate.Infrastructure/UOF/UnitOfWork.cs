@@ -10,17 +10,19 @@ public class UnitOfWork: IUnitOfWork
     private readonly ApplicationContext  _dbContext;
     private readonly Dictionary<Type, object> _repositories;
     public IAgencyRepository GetAgencyRepository { get; }
-    
+    public IAgentRepository GetAgentRepository { get; }
+
     public ApplicationContext Context { get; }
 
     #endregion
 
     #region Constructor
-    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository, ApplicationContext context)
+    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository, ApplicationContext context, IAgentRepository getAgentRepository)
     {
         _dbContext = dbContext;
         GetAgencyRepository = getAgencyRepository;
         Context = context;
+        GetAgentRepository = getAgentRepository;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion

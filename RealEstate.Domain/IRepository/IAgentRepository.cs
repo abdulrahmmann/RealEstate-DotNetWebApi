@@ -5,6 +5,8 @@ namespace RealEstate.Domain.IRepository;
 public interface IAgentRepository: IGenericRepository<Agent>
 {
     #region GET METHODS
+    Task<IEnumerable<Agent>>  GetAllAgentsAsync();
+    
     IQueryable<Agent> SearchAgentByName(string name);
     
     Task<Agent> GetAgentByEmail(string email);

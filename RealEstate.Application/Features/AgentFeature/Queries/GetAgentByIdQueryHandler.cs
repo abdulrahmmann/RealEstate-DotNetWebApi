@@ -1,31 +1,40 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgentFeature.DTOs;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgentFeature.Queries;
 
-public class GetAllAgentsQueryHandler: IRequestHandler<GetAllAgentsQuery, BaseResponse<IEnumerable<GetAgentDto>>>
+public class GetAgentByIdQueryHandler: IRequestHandler<GetAgentByIdQuery, BaseResponse<GetAgentDto>>
 {
     #region Instance Fields
     private readonly IUnitOfWork  _unitOfWork;
     #endregion
     
     #region Constructor
-    public GetAllAgentsQueryHandler(IUnitOfWork unitOfWork)
+    public GetAgentByIdQueryHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
     #endregion
     
-    public async Task<BaseResponse<IEnumerable<GetAgentDto>>> Handle(GetAllAgentsQuery request, CancellationToken cancellationToken)
+    public async Task<BaseResponse<GetAgentDto>> Handle(GetAgentByIdQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            var agents = await _unitOfWork.GetAgentRepository.GetAllAgentsAsync();
-            
-            var mapped = agents.Select(agent => new GetAgentDto(
+            if (request.Id == null)
+            {
+                return BaseResponse<GetAgentDto>.BadRequest("Request Can not be null");
+            }
+
+            if (request.Id <= 0)
+            {
+                return BaseResponse<GetAgentDto>.ValidationError("Request Can not be less than or equal zero");
+            }
+
+            var agent = await _unitOfWork.GetAgentRepository.GetByIdAsync(request.Id);
+
+            var mapped = new GetAgentDto(
                 Name: agent.Name,
                 Email: agent.Email,
                 Phone: agent.Phone,
@@ -35,14 +44,14 @@ public class GetAllAgentsQueryHandler: IRequestHandler<GetAllAgentsQuery, BaseRe
                 Street: agent.Address.Street!,
                 ZipCode: agent.Address.ZipCode!,
                 AgencyName: agent.Agency?.Name ?? "N/A"
-            )).ToList();
-
-            return BaseResponse<IEnumerable<GetAgentDto>>.Success(mapped);
+            );
+            
+            return BaseResponse<GetAgentDto>.Success(mapped);
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return BaseResponse<IEnumerable<GetAgentDto>>.InternalError();
+            return BaseResponse<GetAgentDto>.InternalError();
         }
     }
 }

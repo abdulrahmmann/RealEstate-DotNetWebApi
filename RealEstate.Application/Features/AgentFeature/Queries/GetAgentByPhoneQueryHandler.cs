@@ -1,31 +1,35 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgentFeature.DTOs;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgentFeature.Queries;
 
-public class GetAllAgentsQueryHandler: IRequestHandler<GetAllAgentsQuery, BaseResponse<IEnumerable<GetAgentDto>>>
+public class GetAgentByPhoneQueryHandler: IRequestHandler<GetAgentByPhoneQuery, BaseResponse<GetAgentDto>>
 {
     #region Instance Fields
     private readonly IUnitOfWork  _unitOfWork;
     #endregion
     
     #region Constructor
-    public GetAllAgentsQueryHandler(IUnitOfWork unitOfWork)
+    public GetAgentByPhoneQueryHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
     #endregion
-    
-    public async Task<BaseResponse<IEnumerable<GetAgentDto>>> Handle(GetAllAgentsQuery request, CancellationToken cancellationToken)
+
+    public async Task<BaseResponse<GetAgentDto>> Handle(GetAgentByPhoneQuery request, CancellationToken cancellationToken)
     {
         try
         {
-            var agents = await _unitOfWork.GetAgentRepository.GetAllAgentsAsync();
+            if (request.PhoneNumber == null)
+            {
+                return BaseResponse<GetAgentDto>.ValidationError("Request Can not be null");
+            }
+
+            var agent = await _unitOfWork.GetAgentRepository.GetAgentByPhone(request.PhoneNumber);
             
-            var mapped = agents.Select(agent => new GetAgentDto(
+            var mapped = new GetAgentDto(
                 Name: agent.Name,
                 Email: agent.Email,
                 Phone: agent.Phone,
@@ -35,14 +39,14 @@ public class GetAllAgentsQueryHandler: IRequestHandler<GetAllAgentsQuery, BaseRe
                 Street: agent.Address.Street!,
                 ZipCode: agent.Address.ZipCode!,
                 AgencyName: agent.Agency?.Name ?? "N/A"
-            )).ToList();
-
-            return BaseResponse<IEnumerable<GetAgentDto>>.Success(mapped);
+            );
+            
+            return BaseResponse<GetAgentDto>.Success(mapped);
         }
         catch (Exception e)
         {
             Console.WriteLine(e.Message);
-            return BaseResponse<IEnumerable<GetAgentDto>>.InternalError();
+            return BaseResponse<GetAgentDto>.InternalError();
         }
     }
 }

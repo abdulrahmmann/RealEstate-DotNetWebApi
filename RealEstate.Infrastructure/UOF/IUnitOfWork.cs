@@ -11,6 +11,8 @@ public interface IUnitOfWork: IDisposable
     
     IAgencyRepository GetAgencyRepository { get; }
     
+    IAgentRepository GetAgentRepository { get; }
+    
     void SaveChanges();
 
     Task SaveChangesAsync();
