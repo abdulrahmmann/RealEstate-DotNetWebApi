@@ -19,12 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Features\AgencyFeature\Commands\" />
+      <Folder Include="Features\AgencyFeature\Queries\" />
       <Folder Include="Features\AgentFeature\Commands\" />
       <Folder Include="Features\AgentFeature\Queries\" />
-      <Folder Include="Features\CategoryFeature\Commands\" />
-      <Folder Include="Features\CategoryFeature\DTOs\" />
-      <Folder Include="Features\CategoryFeature\Queries\" />
-      <Folder Include="Features\CategoryFeature\Validation\" />
       <Folder Include="Features\PropertyFeature\Commands\" />
       <Folder Include="Features\PropertyFeature\DTOs\" />
       <Folder Include="Features\PropertyFeature\Queries\" />
