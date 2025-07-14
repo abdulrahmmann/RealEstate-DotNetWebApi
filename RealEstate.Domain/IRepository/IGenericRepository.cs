@@ -17,5 +17,5 @@ public interface IGenericRepository<T> where T : class
 
     void Save();
     
-    Task<int> GetTotalCountAsync();
+    Task<int> CountAsync();
 }

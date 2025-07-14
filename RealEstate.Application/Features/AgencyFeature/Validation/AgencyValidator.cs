@@ -3,9 +3,9 @@ using RealEstate.Application.Features.AgencyFeature.DTOs;
 
 namespace RealEstate.Application.Features.AgencyFeature.Validation;
 
-public class AddAgencyValidator: AbstractValidator<AddAgencyDto>
+public class AgencyValidator: AbstractValidator<AgencyDto>
 {
-    public AddAgencyValidator()
+    public AgencyValidator()
     {
         RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Agency name is required.")
@@ -19,5 +19,4 @@ public class AddAgencyValidator: AbstractValidator<AddAgencyDto>
             .NotEmpty().WithMessage("Tax number is required.")
             .MaximumLength(50).WithMessage("Tax number must not exceed 50 characters.");
     }
-    
 }

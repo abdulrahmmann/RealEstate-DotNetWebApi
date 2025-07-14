@@ -19,18 +19,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Features\AgencyFeature\Commands\" />
-      <Folder Include="Features\AgencyFeature\Queries\" />
-      <Folder Include="Features\AgentFeature\Commands\" />
-      <Folder Include="Features\AgentFeature\Queries\" />
-      <Folder Include="Features\PropertyFeature\Commands\" />
-      <Folder Include="Features\PropertyFeature\DTOs\" />
-      <Folder Include="Features\PropertyFeature\Queries\" />
-      <Folder Include="Features\PropertyFeature\Validation\" />
-      <Folder Include="Features\ReviewFeature\Commands\" />
-      <Folder Include="Features\ReviewFeature\DTOs\" />
-      <Folder Include="Features\ReviewFeature\Queries\" />
-      <Folder Include="Features\ReviewFeature\Validation\" />
       <Folder Include="Features\UserFeature\Queries\" />
     </ItemGroup>
 

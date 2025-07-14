@@ -47,13 +47,16 @@ public class BaseResponse<T>
     /// <summary>200 OK — Operation succeeded and returns data.</summary>
     public static BaseResponse<T> Success(T? data, string message = "Operation successful", int? totalCount = null)
         => new(data, HttpStatusCode.OK, message, totalCount);
-
+    
+    public static BaseResponse<T> Success(string message = "Operation successful")
+        => new(HttpStatusCode.OK, message);
+    
     /// <summary>201 Created — Resource was created successfully.</summary>
-    public static BaseResponse<T> Created(T? data, string message = "Resource created successfully")
-        => new(data, HttpStatusCode.Created, message);
+    public static BaseResponse<T> Created(T? data, string message = "Resource created successfully", int? totalCount = null)
+        => new(data, HttpStatusCode.Created, message, totalCount);
 
     /// <summary>201 Created — Resource created without returning data.</summary>
-    public static BaseResponse<T> Created(string message)
+    public static BaseResponse<T> Created(string message = "Resource created successfully")
         => new(HttpStatusCode.Created, message);
 
     /// <summary>204 No Content — Success without returning data.</summary>

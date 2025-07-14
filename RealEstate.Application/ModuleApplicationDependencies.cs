@@ -13,6 +13,7 @@ public static class ModuleApplicationDependencies
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
         
         // Register FLUENT VALIDATION
+        services.AddValidatorsFromAssemblyContaining<AgencyValidator>();
         services.AddValidatorsFromAssemblyContaining<AddAgencyValidator>();
 
         
