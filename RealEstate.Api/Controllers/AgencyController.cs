@@ -129,8 +129,8 @@ namespace RealEstate.Controllers
         }
         #endregion
 
+        
         #region PUT
-
         [HttpPut]
         [Route("update-agency")]
         public async Task<IActionResult> UpdateAgency(int id, UpdateAgencyDto agencyDto)
