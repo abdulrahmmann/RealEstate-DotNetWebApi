@@ -128,5 +128,22 @@ namespace RealEstate.Controllers
             return NewResult(result);
         }
         #endregion
+
+        #region PUT
+
+        [HttpPut]
+        [Route("update-agency")]
+        public async Task<IActionResult> UpdateAgency(int id, UpdateAgencyDto agencyDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new UpdateAgencyRequest(id, agencyDto));
+
+            return NewResult(result);
+        }
+        #endregion
     }
 }

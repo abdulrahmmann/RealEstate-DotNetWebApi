@@ -46,7 +46,18 @@ public class AgencyRepository: GenericRepository<Agency>, IAgencyRepository
     
 
     #region PUT METHODS
-    
+    public void UpdateAgency(int id, Agency agency)
+    {
+        var existingAgency = _dbContext.Agencies.Find(id);
+        
+        if (existingAgency == null) return;
+
+        existingAgency.Name = agency.Name;
+        existingAgency.LicenseNumber = agency.LicenseNumber;
+        existingAgency.TaxNumber = agency.TaxNumber;
+
+        _dbContext.Agencies.Update(existingAgency);
+    }
     #endregion
     
     

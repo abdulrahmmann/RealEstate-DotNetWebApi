@@ -19,7 +19,7 @@ public interface IAgencyRepository: IGenericRepository<Agency>
     
 
     #region PUT METHODS
-    
+    void UpdateAgency(int id, Agency agency);
     #endregion
     
     
