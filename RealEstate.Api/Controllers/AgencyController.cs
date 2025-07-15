@@ -10,7 +10,8 @@ namespace RealEstate.Controllers
     public class AgencyController : AppControllerBase
     {
         #region GET
-        [HttpGet("agencies")]
+        [HttpGet()]
+        [Route("agencies")]
         public async Task<IActionResult> GetAllAgencies()
         {
             if (!ModelState.IsValid)
@@ -19,6 +20,62 @@ namespace RealEstate.Controllers
             }
 
             var result = await Mediator.Send(new GetAllAgenciesRequest());
+
+            return NewResult(result);
+        }
+
+        [HttpGet()]
+        [Route("{id}")]
+        public async Task<IActionResult> GetAgencyById([FromQuery] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetAgencyByIdRequest(id));
+
+            return NewResult(result);
+        }
+        
+        [HttpGet()]
+        [Route("search-name/{name}")]
+        public async Task<IActionResult> SearchAgenciesByName([FromQuery] string name)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new SearchAgencyByNameRequest(name));
+
+            return NewResult(result);
+        }
+        
+        [HttpGet()]
+        [Route("tax/{taxNumber}")]
+        public async Task<IActionResult> SearchAgenciesByTaxNumber([FromQuery] string taxNumber)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetAgencyByTaxNumberRequest(taxNumber));
+
+            return NewResult(result);
+        }
+        
+        [HttpGet()]
+        [Route("license/{licenseNumber}")]
+        public async Task<IActionResult> SearchAgenciesByLicenseNumber([FromQuery] string licenseNumber)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetAgencyByLicenseNumberRequest(licenseNumber));
 
             return NewResult(result);
         }
