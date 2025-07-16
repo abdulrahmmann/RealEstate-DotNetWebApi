@@ -5,22 +5,14 @@ using RealEstate.Infrastructure.Context;
 
 namespace RealEstate.Infrastructure.Repository;
 
-public class AgentRepository: GenericRepository<Agent>, IAgentRepository
+public class AgentRepository(ApplicationContext dbContext) : GenericRepository<Agent>(dbContext), IAgentRepository
 {
     #region Instance Fields
-    private readonly ApplicationContext _dbContext;
+    private readonly ApplicationContext _dbContext = dbContext;
     #endregion
     
-    #region Constructor
-    public AgentRepository(ApplicationContext dbContext) : base(dbContext)
-    {
-        _dbContext = dbContext;
-    }
-    #endregion
-
     
     #region GET METHODS
-
     public async Task<IEnumerable<Agent>> GetAllAgentsAsync()
     {
         return await _dbContext.Agents.Include(a => a.Agency).ToListAsync();

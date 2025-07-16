@@ -6,19 +6,13 @@ using RealEstate.Infrastructure.Context;
 
 namespace RealEstate.Infrastructure.Repository;
 
-public class PropertyRepository: GenericRepository<Property>, IPropertyRepository
+public class PropertyRepository(ApplicationContext dbContext)
+    : GenericRepository<Property>(dbContext), IPropertyRepository
 {
     #region Instance Fields
-    private readonly ApplicationContext _dbContext;
+    private readonly ApplicationContext _dbContext = dbContext;
     #endregion
     
-    #region Constructor
-    public PropertyRepository(ApplicationContext dbContext) : base(dbContext)
-    {
-        _dbContext = dbContext;
-    }
-    #endregion
-
     
     #region GET METHODS
     public IQueryable<Property> SearchPropertyByName(string name)

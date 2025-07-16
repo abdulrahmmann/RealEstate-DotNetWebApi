@@ -5,19 +5,11 @@ using RealEstate.Infrastructure.Context;
 
 namespace RealEstate.Infrastructure.Repository;
 
-public class AgencyRepository: GenericRepository<Agency>, IAgencyRepository
+public class AgencyRepository(ApplicationContext dbContext) : GenericRepository<Agency>(dbContext), IAgencyRepository
 {
     #region Instance Fields
-    private readonly ApplicationContext _dbContext;
+    private readonly ApplicationContext _dbContext = dbContext;
     #endregion
-    
-    #region Constructor
-    public AgencyRepository(ApplicationContext dbContext) : base(dbContext)
-    {
-        _dbContext = dbContext;
-    }
-    #endregion
-    
     
     #region GET METHODS
     public IQueryable<Agency> SearchAgencyByName(string name)
