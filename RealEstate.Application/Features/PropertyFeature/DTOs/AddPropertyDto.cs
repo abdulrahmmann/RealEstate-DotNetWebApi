@@ -4,7 +4,6 @@ using RealEstate.Domain.Enums;
 namespace RealEstate.Application.Features.PropertyFeature.DTOs;
 
 public record AddPropertyDto(
-    int Id,
     string Name,
     string Description,
     PropertyType Type,

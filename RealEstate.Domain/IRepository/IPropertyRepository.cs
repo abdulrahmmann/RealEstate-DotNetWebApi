@@ -23,6 +23,8 @@ public interface IPropertyRepository: IGenericRepository<Property>
     IQueryable<Property> SearchPropertyByCity(string city);
     
     Task<Property> GetPropertyByName(string name);
+    
+    Task<IEnumerable<Property>> GetAllPropertiesAsync();
     #endregion
     
     

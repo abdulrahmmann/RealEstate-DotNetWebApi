@@ -66,5 +66,10 @@ public class PropertyRepository(ApplicationContext dbContext)
         return (await _dbContext.Properties.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower()))!;
     }
 
+    public async Task<IEnumerable<Property>> GetAllPropertiesAsync()
+    {
+        return await _dbContext.Properties.Include(p => p.Agent).Include(p => p.Category).ToListAsync();
+    }
+
     #endregion
 }

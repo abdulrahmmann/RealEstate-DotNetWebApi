@@ -1,4 +1,5 @@
-﻿using RealEstate.Domain.Common;
+﻿using System.Text.Json.Serialization;
+using RealEstate.Domain.Common;
 using RealEstate.Domain.Enums;
 using RealEstate.Domain.ValueObjects;
 
@@ -9,9 +10,13 @@ public class Property: BaseEntity
     public string Name { get; set; } = null!;
     
     public string Description { get; set; } = null!;
+
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public PropertyType Type { get; set; }  
     
-    public PropertyType Type { get; set; }    
     
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public PropertyStatus Status { get; set; } 
     
     public decimal Price { get; set; }    

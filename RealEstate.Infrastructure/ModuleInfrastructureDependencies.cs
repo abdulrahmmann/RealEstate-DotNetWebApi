@@ -19,6 +19,7 @@ public static class ModuleInfrastructureDependencies
         services.AddScoped<IPropertyRepository, PropertyRepository>();
         services.AddScoped<IAgentRepository, AgentRepository>();
         services.AddScoped<IAgencyRepository, AgencyRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
         
         return services;
     }
