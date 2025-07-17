@@ -24,7 +24,7 @@ public class GetAgencyByLicenseNumberHandler(IUnitOfWork unitOfWork): IRequestHa
 
             var agency = await _unitOfWork.GetAgencyRepository.GetAgencyByLicenseNumber(request.LicenseNumber);
             
-            if (agency.Equals(null))
+            if (agency is null)
             {
                 return BaseResponse<AgencyDto>.NotFound();
             }

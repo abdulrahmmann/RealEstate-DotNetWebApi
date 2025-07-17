@@ -24,7 +24,7 @@ public class GetAgencyByTaxNumberHandler(IUnitOfWork unitOfWork): IRequestHandle
 
             var agency = await _unitOfWork.GetAgencyRepository.GetAgencyByTaxNumber(request.TaxNumber);
 
-            if (agency.Equals(null))
+            if (agency is null)
             {
                 return BaseResponse<AgencyDto>.NotFound();
             }

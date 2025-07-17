@@ -26,7 +26,7 @@ public class GetAgencyByIdRequestHandler(IUnitOfWork unitOfWork)
 
             var agency = await _unitOfWork.GetRepository<Agency>().GetByIdAsync(request.Id);
 
-            if (agency.Equals(null))
+            if (agency is null)
             {
                 return BaseResponse<AgencyDto>.NotFound($"Agency with Id: {request.Id} was not found");
             }

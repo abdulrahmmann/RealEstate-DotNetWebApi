@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.Commands.Requests;
+using RealEstate.Domain.Entities;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgencyFeature.Commands.Handler;
@@ -16,7 +17,7 @@ public class UpdateAgencyHandler(IUnitOfWork unitOfWork): IRequestHandler<Update
     {
         try
         {
-            var agency = await _unitOfWork.GetAgencyRepository.GetByIdAsync(request.Id);
+            var agency = await _unitOfWork.GetRepository<Agency>().GetByIdAsync(request.Id);
 
             if (agency is null)
             {

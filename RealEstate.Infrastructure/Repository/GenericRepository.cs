@@ -31,6 +31,8 @@ public class GenericRepository<T>: IGenericRepository<T> where T : class
 
     public async Task<T> GetByIdAsync(int id) => (await _dbSet.FindAsync(id))!;
 
+    public async Task<T> GetByNameAsync(string name) => (await _dbSet.FindAsync(name))!;
+
     public async Task AddAsync(T entity) => await _dbSet.AddAsync(entity);
 
     public async Task AddRangeAsync(IEnumerable<T> entities) => await _dbSet.AddRangeAsync(entities);
