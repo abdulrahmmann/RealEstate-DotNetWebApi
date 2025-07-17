@@ -44,7 +44,22 @@ public class AgentRepository(ApplicationContext dbContext) : GenericRepository<A
     
     
     #region PUT METHODS
-    
+    public void UpdateAgent(int id, Agent agent)
+    {
+        var existingAgent =  _dbContext.Agents.Find(id);
+        
+        if (existingAgent == null) return;
+        
+        existingAgent.Name = agent.Name;
+        existingAgent.Email = agent.Email;
+        existingAgent.Phone = agent.Phone;
+        existingAgent.ImageUrl = agent.ImageUrl;
+        existingAgent.ServiceArea = agent.ServiceArea;
+        existingAgent.Address = agent.Address;
+        existingAgent.AgencyId = agent.AgencyId;
+        
+        _dbContext.Agents.Update(existingAgent);
+    }
     #endregion
     
     

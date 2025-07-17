@@ -98,7 +98,39 @@ namespace RealEstate.Controllers
             return NewResult(result);
         }
         #endregion
+
+
+        #region PUT
+        [HttpPut]
+        [Route("update-agent/id={id}")]
+        public async Task<IActionResult> UpdateAgent(int id, UpdateAgentDto agentDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new UpdateAgentRequest(id, agentDto));
+
+            return NewResult(result);
+        }
+        #endregion
         
         
+        #region DELETE
+        [HttpDelete]
+        [Route("delete-agent/id={id}")]
+        public async Task<IActionResult> DeleteAgent(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new DeleteAgentRequest(id));
+
+            return NewResult(result);
+        }
+        #endregion
     }
 }

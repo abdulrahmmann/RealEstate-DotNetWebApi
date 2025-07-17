@@ -18,7 +18,7 @@ public class UpdateAgencyHandler(IUnitOfWork unitOfWork): IRequestHandler<Update
         {
             var agency = await _unitOfWork.GetAgencyRepository.GetByIdAsync(request.Id);
 
-            if (agency.Equals(null))
+            if (agency is null)
             {
                 return BaseResponse<Unit>.NotFound();
             }

@@ -21,7 +21,7 @@ public interface IAgentRepository: IGenericRepository<Agent>
     
 
     #region PUT METHODS
-    
+    void UpdateAgent(int id, Agent agent);
     #endregion
     
     
