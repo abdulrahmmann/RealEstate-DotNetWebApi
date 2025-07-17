@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using RealEstate.Application.Features.AgencyFeature.Validation;
 using RealEstate.Application.Features.AgentFeature.Validation;
+using RealEstate.Application.Features.PropertyFeature.Validation;
 
 namespace RealEstate.Application;
 
@@ -17,6 +18,7 @@ public static class ModuleApplicationDependencies
         services.AddValidatorsFromAssemblyContaining<AgencyValidator>();
         services.AddValidatorsFromAssemblyContaining<AddAgencyValidator>();
         services.AddValidatorsFromAssemblyContaining<AddAgentValidator>();
+        services.AddValidatorsFromAssemblyContaining<AddPropertyValidator>();
 
         
         return services;

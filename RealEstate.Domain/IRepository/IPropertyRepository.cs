@@ -21,6 +21,8 @@ public interface IPropertyRepository: IGenericRepository<Property>
     IQueryable<Property> SearchPropertyByCountry(string country);
     
     IQueryable<Property> SearchPropertyByCity(string city);
+    
+    Task<Property> GetPropertyByName(string name);
     #endregion
     
     

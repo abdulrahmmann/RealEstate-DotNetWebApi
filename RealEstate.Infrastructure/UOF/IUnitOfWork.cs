@@ -13,6 +13,10 @@ public interface IUnitOfWork: IDisposable
     
     IAgentRepository GetAgentRepository { get; }
     
+    IPropertyRepository GetPropertyRepository { get; }
+    
+    ICategoryRepository GetCategoryRepository { get; }
+    
     void SaveChanges();
 
     Task SaveChangesAsync();

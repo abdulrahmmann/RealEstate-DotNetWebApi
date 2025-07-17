@@ -1,8 +1,9 @@
-﻿using RealEstate.Domain.Enums;
+﻿using RealEstate.Application.Features.PropertyFeature.DTOs.ValueObjectDTO;
+using RealEstate.Domain.Enums;
 
 namespace RealEstate.Application.Features.PropertyFeature.DTOs;
 
-public record PropertyDto(
+public record AddPropertyDto(
     int Id,
     string Name,
     string Description,

@@ -60,5 +60,11 @@ public class PropertyRepository(ApplicationContext dbContext)
     {
         return _dbContext.Properties.Where(p => p.Address.City.ToLower().Equals(city.ToLower()));
     }
+
+    public async Task<Property> GetPropertyByName(string name)
+    {
+        return (await _dbContext.Properties.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower()))!;
+    }
+
     #endregion
 }

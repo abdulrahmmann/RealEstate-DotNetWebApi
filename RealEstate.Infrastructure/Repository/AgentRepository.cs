@@ -32,6 +32,12 @@ public class AgentRepository(ApplicationContext dbContext) : GenericRepository<A
     {
         return (await _dbContext.Agents.Include(a => a.Agency).FirstOrDefaultAsync(p => p.Phone == phone))!;
     }
+
+    public async Task<Agent> GetAgentByName(string name)
+    {
+        return (await _dbContext.Agents.Include(a => a.Agency).FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower()))!;
+    }
+
     #endregion
     
     

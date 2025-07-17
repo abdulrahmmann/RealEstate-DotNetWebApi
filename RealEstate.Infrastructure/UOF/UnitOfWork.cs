@@ -11,18 +11,24 @@ public class UnitOfWork: IUnitOfWork
     private readonly Dictionary<Type, object> _repositories;
     public IAgencyRepository GetAgencyRepository { get; }
     public IAgentRepository GetAgentRepository { get; }
+    
+    public IPropertyRepository GetPropertyRepository { get; }
+    
+    public ICategoryRepository GetCategoryRepository { get; }
 
     public ApplicationContext Context { get; }
 
     #endregion
 
     #region Constructor
-    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository, ApplicationContext context, IAgentRepository getAgentRepository)
+    public UnitOfWork(ApplicationContext dbContext, IAgencyRepository getAgencyRepository, ApplicationContext context, IAgentRepository getAgentRepository, IPropertyRepository getPropertyRepository, ICategoryRepository getCategoryRepository)
     {
         _dbContext = dbContext;
         GetAgencyRepository = getAgencyRepository;
         Context = context;
         GetAgentRepository = getAgentRepository;
+        GetPropertyRepository = getPropertyRepository;
+        GetCategoryRepository = getCategoryRepository;
         _repositories = new Dictionary<Type, object>();
     }
     #endregion

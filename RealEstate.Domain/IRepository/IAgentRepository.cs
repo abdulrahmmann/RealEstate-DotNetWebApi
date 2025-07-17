@@ -12,6 +12,7 @@ public interface IAgentRepository: IGenericRepository<Agent>
     Task<Agent> GetAgentByEmail(string email);
     
     Task<Agent> GetAgentByPhone(string phone);
+    Task<Agent> GetAgentByName(string name);
     #endregion
     
     

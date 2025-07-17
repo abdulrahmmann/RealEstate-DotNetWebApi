@@ -20,11 +20,8 @@
 
     <ItemGroup>
       <Folder Include="Features\CategoryFeature\Validation\" />
-      <Folder Include="Features\PropertyFeature\Commands\Handler\" />
-      <Folder Include="Features\PropertyFeature\Commands\Requests\" />
       <Folder Include="Features\PropertyFeature\Queries\Handler\" />
       <Folder Include="Features\PropertyFeature\Queries\Requests\" />
-      <Folder Include="Features\PropertyFeature\Validation\" />
       <Folder Include="Features\UserFeature\Queries\" />
     </ItemGroup>
 
