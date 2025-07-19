@@ -5,7 +5,7 @@ namespace RealEstate.Application.Features.CategoryFeature.Mapping;
 
 public static class CategoryMapper
 {
-    #region Map from Category Entity to CategoryDto
+    #region Map from Category Entity to CategoryDto 
     public static CategoryDto To_CategoryDto(this Category category)
     {
         return new CategoryDto(category.Id, category.Name, category.Description);
@@ -18,7 +18,7 @@ public static class CategoryMapper
     #endregion
 
     
-    #region Map from Category DTO to Category Entity
+    #region Map from Category DTO to Category Entity 
     public static Category To_CategoryEntity(this CategoryDto dto)
     {
         return new Category()
@@ -30,7 +30,7 @@ public static class CategoryMapper
     #endregion
 
 
-    #region Map from AddCategoryDto to Category Entity
+    #region Map from AddCategoryDto to Category Entity 
     public static Category To_AddCategoryEntity(this AddCategoryDto category)
     {
         return new Category()
@@ -39,7 +39,6 @@ public static class CategoryMapper
             Description = category.Description
         };
     }
-    
     
     public static IEnumerable<Category> To_AddCategoryEntity_List(this IEnumerable<AddCategoryDto> categories)
     {

@@ -1,41 +1,54 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
+using RealEstate.Application.Features.AgencyFeature.Mapping;
 using RealEstate.Application.Features.AgencyFeature.Queries.Requests;
+using RealEstate.Domain.Entities;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgencyFeature.Queries.Handler;
 
-public class SearchAgencyByNameHandler(IUnitOfWork unitOfWork): IRequestHandler<SearchAgencyByNameRequest, BaseResponse<IQueryable<AgencyDto>>>
+public class SearchAgencyByNameHandler(IUnitOfWork unitOfWork, ILogger<Agency> logger):
+    IRequestHandler<SearchAgencyByNameRequest, BaseResponse<IEnumerable<AgencyDto>>>
 {
-    #region INSTANCES
+    #region Create Instance and Inject it into Primary Constructor.
     private readonly IUnitOfWork  _unitOfWork = unitOfWork;
+    private readonly ILogger<Agency> _logger = logger;
     #endregion
-    
-    public async Task<BaseResponse<IQueryable<AgencyDto>>> Handle(SearchAgencyByNameRequest request, CancellationToken cancellationToken)
+
+
+    public Task<BaseResponse<IEnumerable<AgencyDto>>> Handle(SearchAgencyByNameRequest request, CancellationToken cancellationToken)
     {
         try
         {
+            // 1. Check If The Request Name Is Null or Empty.
             if (string.IsNullOrEmpty(request.Name))
             {
-                return BaseResponse<IQueryable<AgencyDto>>.ValidationError("request cannot be null or empty");
+                return Task.FromResult(BaseResponse<IEnumerable<AgencyDto>>.ValidationError("request cannot be null or empty"));
             }
 
+            // 2. Get All Searched Agencies.
             var agencies = _unitOfWork.GetAgencyRepository.SearchAgencyByName(request.Name);
-
-            if (!agencies.Any())
+            
+            // 3. Materialize  and Check if Agencies is Empty.
+            var agenciesList = agencies.ToList();
+            
+            if (!agenciesList.Any())
             {
-                return BaseResponse<IQueryable<AgencyDto>>.NotFound();
+                return Task.FromResult(BaseResponse<IEnumerable<AgencyDto>>.NoContent());
             }
 
-            var mapped = agencies.Select(a => new AgencyDto(a.Id, a.Name, a.LicenseNumber, a.TaxNumber));
-
-            return BaseResponse<IQueryable<AgencyDto>>.Success(mapped);
+            // 4. Map Agency to AgencyDTO.
+            var mapped = agenciesList.To_AgencyDto_List();
+            
+            // 5. Return Agencies.
+            return Task.FromResult(BaseResponse<IEnumerable<AgencyDto>>.Success(mapped));
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
-            return BaseResponse<IQueryable<AgencyDto>>.InternalError(e.Message);
+            _logger.LogError("Internal Server Error: {EMessage}", e.Message);
+            return Task.FromResult(BaseResponse<IEnumerable<AgencyDto>>.InternalError(e.Message));
         }
     }
 }

@@ -1,15 +1,20 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
+using RealEstate.Application.Features.AgencyFeature.Mapping;
 using RealEstate.Application.Features.AgencyFeature.Queries.Requests;
+using RealEstate.Domain.Entities;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.AgencyFeature.Queries.Handler;
 
-public class GetAgencyByTaxNumberHandler(IUnitOfWork unitOfWork): IRequestHandler<GetAgencyByTaxNumberRequest, BaseResponse<AgencyDto>>
+public class GetAgencyByTaxNumberHandler(IUnitOfWork unitOfWork, ILogger<Agency> logger)
+    : IRequestHandler<GetAgencyByTaxNumberRequest, BaseResponse<AgencyDto>>
 {
-    #region INSTANCES
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    #region Create Instance and Inject it into Primary Constructor.
+    private readonly IUnitOfWork  _unitOfWork = unitOfWork;
+    private readonly ILogger<Agency> _logger = logger;
     #endregion
     
     
@@ -17,21 +22,26 @@ public class GetAgencyByTaxNumberHandler(IUnitOfWork unitOfWork): IRequestHandle
     {
         try
         {
+            // 1. Check If The Request TaxNumber Is Null or Empty.
             if (string.IsNullOrEmpty(request.TaxNumber))
             {
                 return BaseResponse<AgencyDto>.NotFound("request cannot be null or empty");
             }
 
+            // 2. Get Agency By TaxNumber.
             var agency = await _unitOfWork.GetAgencyRepository.GetAgencyByTaxNumber(request.TaxNumber);
 
+            // 3. Check If Agency is Null.
             if (agency is null)
             {
-                return BaseResponse<AgencyDto>.NotFound();
+                return BaseResponse<AgencyDto>.NotFound($"Agency with TaxNumber: {request.TaxNumber} was not found");
             }
 
-            var mapped = new AgencyDto(agency.Id, agency.Name, agency.LicenseNumber, agency.TaxNumber);
+            // 4. Map Agency to AgencyDTO.
+            var mapped = agency.To_AgencyDto();
             
-            return BaseResponse<AgencyDto>.Success(mapped);
+            // 5. Return Agency.
+            return BaseResponse<AgencyDto>.Success(mapped, $"Agency with TaxNumber: {request.TaxNumber} was successfully retrieved");
         }
         catch (Exception e)
         {

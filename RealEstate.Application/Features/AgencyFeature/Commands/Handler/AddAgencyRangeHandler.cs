@@ -1,5 +1,7 @@
 ﻿using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.AgencyFeature.Commands.Requests;
 using RealEstate.Application.Features.AgencyFeature.DTOs;
@@ -10,17 +12,18 @@ namespace RealEstate.Application.Features.AgencyFeature.Commands.Handler;
 
 public class AddAgencyRangeHandler: IRequestHandler<AddAgencyRangeRequest, BaseResponse<int>>
 {
-    #region INSTANCES
+    #region Create Instances.
     private readonly IUnitOfWork _unitOfWork;
     private readonly IValidator<AddAgencyDto>  _validator;
+    private readonly ILogger<Agency>  _logger;
     #endregion
     
-    
-    #region CONSTRUCTOR
-    public AddAgencyRangeHandler(IUnitOfWork unitOfWork, IValidator<AddAgencyDto> validator)
+    #region Inject Instances into Constructor.
+    public AddAgencyRangeHandler(IUnitOfWork unitOfWork, IValidator<AddAgencyDto> validator, ILogger<Agency> logger)
     {
         _unitOfWork = unitOfWork;
         _validator = validator;
+        _logger = logger;
     }
     #endregion
     
@@ -29,26 +32,40 @@ public class AddAgencyRangeHandler: IRequestHandler<AddAgencyRangeRequest, BaseR
     {
         try
         {
+            // 1. Create List Of Categories to Add Just The Valid Items.
             var invalidItems = new List<string>();
             
             var validItems = new List<Agency>();
 
+            // 2. Iterate to The List.
             foreach (var dto in request.AgenciesDto)
             {
-                var validationResult = await _validator.ValidateAsync(dto, cancellationToken);
-
-                if (!validationResult.IsValid)
+                // 3. Check If The Agency Is Exist.
+                var existingAgency =
+                    await _unitOfWork.Context.Agencies.FirstOrDefaultAsync(c => c.Name == dto.Name, cancellationToken);
+                    
+                if (existingAgency != null)
                 {
-                    var errors = string.Join(", ", validationResult.Errors.Select(err => err.ErrorMessage));
-                    invalidItems.Add($"[{dto.Name}]: {errors}");
+                    continue;
                 }
-                
-                validItems.Add(new Agency
+                else
                 {
-                    Name = dto.Name,   
-                    LicenseNumber = dto.LicenseNumber,
-                    TaxNumber = dto.TaxNumber,
-                });
+                    // 4. Check Validation Is Valid.
+                    var validationResult = await _validator.ValidateAsync(dto, cancellationToken);
+
+                    if (!validationResult.IsValid)
+                    {
+                        var errors = string.Join(", ", validationResult.Errors.Select(err => err.ErrorMessage));
+                        invalidItems.Add($"[{dto.Name}]: {errors}");
+                    }
+                
+                    validItems.Add(new Agency
+                    {
+                        Name = dto.Name,   
+                        LicenseNumber = dto.LicenseNumber,
+                        TaxNumber = dto.TaxNumber,
+                    });
+                }
             }
 
             if (validItems.Count != 0)

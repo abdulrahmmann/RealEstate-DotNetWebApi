@@ -24,15 +24,12 @@ public class GetCategoriesHandler(IUnitOfWork unitOfWork, ILogger<Category>  log
             // 1. Get All Categories.
             var categories = await _unitOfWork.GetRepository<Category>().GetAllAsync();
 
-            
             // 2. Map Categories To CategoriesDTOs.
             var enumerable = categories.ToList();
             var mapped = enumerable.To_CategoryDto_List();
-
             
-            // 3. Get The Categories Count.
+            // 3. Get Categories Count.
             var counts = enumerable.Count;
-            
             
             // 4. Return Categories.
             return BaseResponse<IEnumerable<CategoryDto>>.Success(mapped, "Categories Retrieved Successfully", counts);
