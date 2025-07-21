@@ -12,7 +12,7 @@ public interface IPropertyRepository: IGenericRepository<Property>
     
     IQueryable<Property> SearchPropertyByStatus(PropertyStatus status);
     
-    IQueryable<Property> SearchPropertyByPrice(decimal price);
+    IQueryable<Property> SearchPropertyByPrice(decimal fromPrice, decimal toPrice);
 
     IQueryable<Property> SearchPropertyByRating(double rating);
     
@@ -22,7 +22,7 @@ public interface IPropertyRepository: IGenericRepository<Property>
     
     IQueryable<Property> SearchPropertyByCity(string city);
     
-    Task<Property> GetPropertyByName(string name);
+    Task<Property> GetPropertyByNameAsync(string name);
     
     Task<IEnumerable<Property>> GetAllPropertiesAsync();
     #endregion

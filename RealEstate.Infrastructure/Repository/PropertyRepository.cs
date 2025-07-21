@@ -22,17 +22,17 @@ public class PropertyRepository(ApplicationContext dbContext)
 
     public IQueryable<Property> SearchPropertyByType(PropertyType type)
     {
-        return _dbContext.Properties.Where(p => p.Type.Equals(type));
+        return _dbContext.Properties.Where(p => p.Type == type);
     }
 
     public IQueryable<Property> SearchPropertyByStatus(PropertyStatus status)
     {
-        return _dbContext.Properties.Where(p => p.Status.Equals(status));
+        return _dbContext.Properties.Where(p => p.Status == status);
     }
 
-    public IQueryable<Property> SearchPropertyByPrice(decimal price)
+    public IQueryable<Property> SearchPropertyByPrice(decimal fromPrice, decimal toPrice)
     {
-        return _dbContext.Properties.Where(p => p.Price.Equals(price));
+        return _dbContext.Properties.Where(p => p.Price >= fromPrice && p.Price <= toPrice);
     }
 
     public IQueryable<Property> SearchPropertyByRating(double rating)
@@ -60,15 +60,19 @@ public class PropertyRepository(ApplicationContext dbContext)
     {
         return _dbContext.Properties.Where(p => p.Address.City.ToLower().Equals(city.ToLower()));
     }
-
-    public async Task<Property> GetPropertyByName(string name)
+    
+    public async Task<Property> GetPropertyByNameAsync(string name)
     {
         return (await _dbContext.Properties.FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower()))!;
     }
 
     public async Task<IEnumerable<Property>> GetAllPropertiesAsync()
     {
-        return await _dbContext.Properties.Include(p => p.Agent).Include(p => p.Category).ToListAsync();
+        return await _dbContext.Properties
+            .Include(p => p.Agent)
+            .Include(p => p.Category)
+            .OrderBy(p => p.Name)
+            .ToListAsync();
     }
 
     #endregion

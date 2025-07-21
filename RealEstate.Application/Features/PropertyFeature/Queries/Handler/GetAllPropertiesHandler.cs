@@ -1,79 +1,49 @@
 ﻿using MediatR;
+using Microsoft.Extensions.Logging;
 using RealEstate.Application.Common;
 using RealEstate.Application.Features.PropertyFeature.DTOs;
-using RealEstate.Application.Features.PropertyFeature.DTOs.ValueObjectDTO;
+using RealEstate.Application.Features.PropertyFeature.Mapping;
 using RealEstate.Application.Features.PropertyFeature.Queries.Requests;
 using RealEstate.Domain.Entities;
 using RealEstate.Infrastructure.UOF;
 
 namespace RealEstate.Application.Features.PropertyFeature.Queries.Handler;
 
-public class GetAllPropertiesHandler(IUnitOfWork unitOfWork): IRequestHandler<GetAllPropertiesRequest, BaseResponse<IEnumerable<PropertyDto>>>
+public class GetAllPropertiesHandler(IUnitOfWork unitOfWork, ILogger<Property> logger)
+    : IRequestHandler<GetAllPropertiesRequest, BaseResponse<IEnumerable<PropertyDto>>>
 {
-    #region INSTANCES
+    #region Create Instances and Inject them into Primary Constructor.
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<Property> _logger = logger;
     #endregion
     
     public async Task<BaseResponse<IEnumerable<PropertyDto>>> Handle(GetAllPropertiesRequest request, CancellationToken cancellationToken)
     {
         try
         {
+            // 1. Get All Properties.
             var properties = await _unitOfWork.GetPropertyRepository.GetAllPropertiesAsync();
             
+            // 2. Check Properties Null.
             if (properties == null) return BaseResponse<IEnumerable<PropertyDto>>.NotFound();
             
-            if (!properties.Any()) return BaseResponse<IEnumerable<PropertyDto>>.NoContent();
+            // 3. Check Properties Empty.
+            var enumerable = properties.ToList();
+            if (!enumerable.Any()) return BaseResponse<IEnumerable<PropertyDto>>.NoContent();
 
-            var mapped = properties.Select(p => new PropertyDto(
-                Id: p.Id,
-                Name: p.Name,
-                Description: p.Description,
-                Type: p.Type,
-                Status: p.Status,
-                Price: p.Price,
-                Rating: p.Rating,
-                ListedDate: p.ListedDate,
-                ImageUrls: p.ImageUrls,
-
-                Address: p.Address == null ? null : new AddressDto(
-                    Country: p.Address.Country,
-                    City: p.Address.City,
-                    Street: p.Address.Street,
-                    ZipCode: p.Address.ZipCode
-                ),
-
-                Amenities: p.Amenities == null ? null : new AmenitiesDto(
-                    HasAirConditioning: p.Amenities.HasAirConditioning,
-                    HasHeating: p.Amenities.HasHeating,
-                    IsFurnished: p.Amenities.IsFurnished,
-                    HasSwimmingPool: p.Amenities.HasSwimmingPool,
-                    HasFireplace: p.Amenities.HasFireplace,
-                    HasGarden: p.Amenities.HasGarden,
-                    HasSecuritySystem: p.Amenities.HasSecuritySystem,
-                    HasSmokingArea: p.Amenities.HasSmokingArea,
-                    HasParking: p.Amenities.HasParking
-                ),
-
-                Facilities: p.Facilities == null ? null : new FacilitiesDto(
-                    Area: p.Facilities.Area,
-                    Rooms: p.Facilities.Rooms,
-                    Kitchens: p.Facilities.Kitchens,
-                    Balconies: p.Facilities.Balconies,
-                    Baths: p.Facilities.Baths,
-                    Beds: p.Facilities.Beds
-                ),
-
-                CategoryName: p.Category?.Name,
-                AgentName: p.Agent?.Name 
-            ));
-
-
-            return BaseResponse<IEnumerable<PropertyDto>>.Success(mapped);
+            // 4. Mapping.
+            var mapped = enumerable.To_PropertyDto_List();
+            
+            // 5. Get Properties Count.
+            var counts = enumerable.Count();
+            
+            // 6. Return Properties.
+            return BaseResponse<IEnumerable<PropertyDto>>.Success(mapped, "Properties Retrieved Successfully", counts);
 
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
+            _logger.LogError("Internal Server Error: {EMessage}", e.Message);
             return BaseResponse<IEnumerable<PropertyDto>>.InternalError(e.Message);
         }
     }
