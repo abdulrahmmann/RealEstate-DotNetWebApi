@@ -164,7 +164,34 @@ namespace RealEstate.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpGet()]
+        [Route("per-type")]
+        public async Task<IActionResult> GetPropertyCountPerType()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            var result = await Mediator.Send(new GetPropertyCountPerTypeRequest());
+
+            return NewResult(result);
+        }
+        
+        [HttpGet()]
+        [Route("per-status")]
+        public async Task<IActionResult> GetPropertyCountPerStatus()
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetPropertyCountPerStatusRequest());
+
+            return NewResult(result);
+        }
         #endregion
         
         

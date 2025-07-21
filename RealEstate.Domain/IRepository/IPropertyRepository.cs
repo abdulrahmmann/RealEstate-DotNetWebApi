@@ -25,6 +25,9 @@ public interface IPropertyRepository: IGenericRepository<Property>
     Task<Property> GetPropertyByNameAsync(string name);
     
     Task<IEnumerable<Property>> GetAllPropertiesAsync();
+    
+    Task<Dictionary<string, int>> GetPropertyCountPerTypeAsync();
+    Task<Dictionary<string, int>> GetPropertyCountPerStatusAsync();
     #endregion
     
     

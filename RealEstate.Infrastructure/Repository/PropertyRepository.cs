@@ -74,5 +74,40 @@ public class PropertyRepository(ApplicationContext dbContext)
             .OrderBy(p => p.Name)
             .ToListAsync();
     }
+
+    public async Task<Dictionary<string, int>> GetPropertyCountPerTypeAsync()
+    {
+        var grouped  = await _dbContext.Properties
+            .GroupBy(p => p.Type)
+            .Select(g => new { Type = g.Key.ToString(), Count = g.Count() })
+            .ToDictionaryAsync(g => g.Type, g => g.Count);
+        
+        foreach (var type in Enum.GetNames(typeof(PropertyType)))
+        {
+            if (!grouped.ContainsKey(type))
+                grouped[type] = 0;
+        }
+
+        return grouped;
+    }
+
+    public async Task<Dictionary<string, int>> GetPropertyCountPerStatusAsync()
+    {
+        var grouped = await _dbContext.Properties
+            .GroupBy(p => p.Status)
+            .Select(g => new {Status = g.Key.ToString(), Count = g.Count()})
+            .ToDictionaryAsync(g => g.Status, g => g.Count);
+
+        foreach (var status in Enum.GetNames(typeof(PropertyStatus)))
+        {
+            if (!grouped.ContainsKey(status))
+            {
+                grouped[status] = 0;
+            }
+        }
+
+        return grouped;
+    }
+
     #endregion
 }
