@@ -16,7 +16,9 @@ public class User: IdentityUser<int>
     
     public int? AgentId { get; init; }
 
-    public UserType UserType { get; } = UserType.User;
+    // public UserType UserType { get; } = UserType.User;
+    
+    public string UserType { get; init; } = "User";
     
     public Agent? Agent { get; init; } 
 

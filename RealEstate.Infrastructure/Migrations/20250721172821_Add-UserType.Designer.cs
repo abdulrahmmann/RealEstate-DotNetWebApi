@@ -12,7 +12,7 @@ using RealEstate.Infrastructure.Context;
 namespace RealEstate.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20250721171456_Add-UserType")]
+    [Migration("20250721172821_Add-UserType")]
     partial class AddUserType
     {
         /// <inheritdoc />
@@ -475,6 +475,12 @@ namespace RealEstate.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("UserType")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(max)")
+                        .HasDefaultValue("User");
 
                     b.HasKey("Id");
 

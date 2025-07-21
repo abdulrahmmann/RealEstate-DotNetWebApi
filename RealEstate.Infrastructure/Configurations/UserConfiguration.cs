@@ -15,6 +15,8 @@ public class UserConfiguration: IEntityTypeConfiguration<User>
         builder.Property(u => u.Id).UseIdentityColumn();
         
         builder.HasIndex(u => u.UserName).IsUnique();
+
+        builder.Property(p => p.UserType).HasDefaultValue("User");
         
         builder.OwnsOne(a => a.Address, address =>
         {
