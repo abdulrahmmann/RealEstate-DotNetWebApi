@@ -182,14 +182,30 @@ namespace RealEstate.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpPost]
+        [Route("add-property-range")]
+        public async Task<IActionResult> AddPropertyRange([FromBody] IEnumerable<AddPropertyDto> propertiesDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new AddPropertiesRangeRequest(propertiesDto));
+
+            return NewResult(result);
+        }
         #endregion
         
         
         #region PUT 
+        
         #endregion
         
         
         #region DELETE 
+        
         #endregion
     }
 }

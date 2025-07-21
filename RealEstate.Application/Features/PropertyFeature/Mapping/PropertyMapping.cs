@@ -112,6 +112,7 @@ public static class PropertyMapping
     #endregion
     
     
+    
     public static IQueryable<PropertyDto> To_PropertyDto_Queryable(this IEnumerable<Property> properties)
     {
         return properties.Select(p => p.To_PropertyDto()).AsQueryable();

@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Diagnostics.Contracts;
+using System.Text.Json.Serialization;
 using RealEstate.Domain.Common;
 using RealEstate.Domain.Enums;
 using RealEstate.Domain.ValueObjects;
@@ -28,7 +29,9 @@ public class Property: BaseEntity
     public DateTime ListedDate { get; set; }
     
     
-    public List<string> ImageUrls { get; set; } = []; 
+    public List<string> ImageUrls { get; set; } = [];
+
+    public bool IsDeleted { get; set; } = false;
     
     // VALUE OBJECTS
 

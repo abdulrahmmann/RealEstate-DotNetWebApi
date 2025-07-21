@@ -11,6 +11,8 @@ public class User: IdentityUser<int>
 
     public Address Address { get; init; } = null!;
     
+    public bool IsDeleted { get; set; } = false;
+    
     public int? AgentId { get; init; }
     
     public Agent? Agent { get; init; } 

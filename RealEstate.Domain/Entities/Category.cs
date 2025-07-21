@@ -8,6 +8,8 @@ public class Category: BaseEntity
     
     public string Description { get; set; } = null!;
     
+    public bool IsDeleted { get; set; } = false;
+    
     // FOREIGN KEYS && NAVIGATIONS
     
     public ICollection<Property> Properties { get; set; } = [];

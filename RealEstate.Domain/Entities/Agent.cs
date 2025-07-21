@@ -13,7 +13,9 @@ public class Agent: BaseEntity
     
     public string ServiceArea { get; set; } = null!;
     
-    public string ImageUrl { get; set; } = null!;    
+    public string ImageUrl { get; set; } = null!;   
+    
+    public bool IsDeleted { get; set; } = false;
     
     
     // VALUE OBJECTS

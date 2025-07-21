@@ -10,6 +10,8 @@ public class Review: BaseEntity
     
     public DateTime DatePosted { get; set; } = DateTime.UtcNow;
     
+    public bool IsDeleted { get; set; } = false;
+    
     // FOREIGN KEYS && NAVIGATIONS
     public int UserId { get; set; }
     
