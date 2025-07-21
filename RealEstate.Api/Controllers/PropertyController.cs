@@ -200,12 +200,36 @@ namespace RealEstate.Controllers
         
         
         #region PUT 
-        
+        [HttpPut]
+        [Route("update-property/id={id}")]
+        public async Task<IActionResult> UpdateProperty(int id, UpdatePropertyDto propertyDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new UpdatePropertyRequest(id, propertyDto));
+
+            return NewResult(result);
+        }
         #endregion
         
         
         #region DELETE 
-        
+        [HttpDelete]
+        [Route("delete-property/id={id}")]
+        public async Task<IActionResult> AddPropertyRange(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new DeletePropertyRequest(id));
+
+            return NewResult(result);
+        }
         #endregion
     }
 }

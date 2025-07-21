@@ -16,7 +16,7 @@ public class GenericRepository<T>: IGenericRepository<T> where T : class
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<T>();
     }
-
+    
     public IEnumerable<T> GetAll()
     {
         return _dbSet.ToList();

@@ -109,6 +109,51 @@ public static class PropertyMapping
             )
         };
     }
+    
+    public static Property To_UpdatePropertyDto(this Property req, Agent agent, Category category)
+    {
+        return new Property
+        {
+            Name = req.Name,
+            Description = req.Description,
+            Type = req.Type,
+            Status = req.Status,
+            Price = req.Price,
+            Rating = req.Rating,
+            ListedDate = req.ListedDate,
+            ImageUrls = req.ImageUrls,
+            CategoryId = category.Id,
+            AgentId = agent.Id,
+
+            Address = new Address(
+                req.Address.Country,
+                req.Address.City,
+                req.Address.Street,
+                req.Address.ZipCode
+            ),
+
+            Amenities = new Amenities(
+                req.Amenities.HasAirConditioning,
+                req.Amenities.HasHeating,
+                req.Amenities.IsFurnished,
+                req.Amenities.HasSwimmingPool,
+                req.Amenities.HasFireplace,
+                req.Amenities.HasGarden,
+                req.Amenities.HasSecuritySystem,
+                req.Amenities.HasSmokingArea,
+                req.Amenities.HasParking
+            ),
+
+            Facilities = new Facilities(
+                req.Facilities.Area,
+                req.Facilities.Rooms,
+                req.Facilities.Kitchens,
+                req.Facilities.Balconies,
+                req.Facilities.Baths,
+                req.Facilities.Beds
+            )
+        };
+    }
     #endregion
     
     

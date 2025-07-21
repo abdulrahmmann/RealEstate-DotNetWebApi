@@ -74,6 +74,5 @@ public class PropertyRepository(ApplicationContext dbContext)
             .OrderBy(p => p.Name)
             .ToListAsync();
     }
-
     #endregion
 }

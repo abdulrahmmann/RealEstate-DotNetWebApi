@@ -39,6 +39,6 @@ public interface IPropertyRepository: IGenericRepository<Property>
     
     
     #region DELETE METHODS
-    
+    // void SoftDeleteProperty(int id);
     #endregion
 }

@@ -1,3 +1,20 @@
-﻿namespace RealEstate.Application.Features.PropertyFeature.DTOs;
+﻿using RealEstate.Application.Features.PropertyFeature.DTOs.ValueObjectDTO;
+using RealEstate.Domain.Enums;
 
-public record UpdatePropertyDto();
+namespace RealEstate.Application.Features.PropertyFeature.DTOs;
+
+public record UpdatePropertyDto(
+    string Name,
+    string Description,
+    PropertyType Type,
+    PropertyStatus Status,
+    decimal Price,
+    double? Rating,
+    DateTime ListedDate,
+    List<string> ImageUrls,
+    AddressDto Address,
+    AmenitiesDto Amenities,
+    FacilitiesDto Facilities,
+    string CategoryName,
+    string AgentName
+    );

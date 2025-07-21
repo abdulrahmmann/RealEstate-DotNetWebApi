@@ -11,8 +11,8 @@ public class DeletePropertyHandler(IUnitOfWork unitOfWork, ILogger<Property> log
     IRequestHandler<DeletePropertyRequest, BaseResponse<Unit>>
 {
     #region Create Instances and Inject them into Primary Constructor.
-    private readonly IUnitOfWork _unitOfWork;
-    private readonly ILogger<Property> _logger;
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly ILogger<Property> _logger = logger;
     #endregion
     
     
@@ -26,7 +26,7 @@ public class DeletePropertyHandler(IUnitOfWork unitOfWork, ILogger<Property> log
             
             if (property == null) return BaseResponse<Unit>.NotFound("property not found");
 
-            _unitOfWork.GetRepository<Property>().Delete(request.Id);
+            property.IsDeleted = true;
 
             await _unitOfWork.SaveChangesAsync();
             
