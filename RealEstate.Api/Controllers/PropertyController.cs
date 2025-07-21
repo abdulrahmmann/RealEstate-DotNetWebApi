@@ -138,7 +138,7 @@ namespace RealEstate.Controllers
         }
         
         [HttpGet]
-        [Route("price")]
+        [Route("price={price1}/{price2}")]
         public async Task<IActionResult> GetPropertyByPrice(decimal price1, decimal price2)
         {
             if (!ModelState.IsValid)
@@ -150,6 +150,21 @@ namespace RealEstate.Controllers
 
             return NewResult(result);
         }
+        
+        [HttpGet()]
+        [Route("date={listedDate}")]
+        public async Task<IActionResult> GetPropertyByListedDate([FromQuery] DateOnly listedDate)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var result = await Mediator.Send(new GetPropertyByListedDateRequest(listedDate));
+
+            return NewResult(result);
+        }
+
         #endregion
         
         
