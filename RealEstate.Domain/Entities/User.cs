@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using RealEstate.Domain.Enums;
 using RealEstate.Domain.ValueObjects;
 
 namespace RealEstate.Domain.Entities;
@@ -14,6 +15,8 @@ public class User: IdentityUser<int>
     public bool IsDeleted { get; set; } = false;
     
     public int? AgentId { get; init; }
+
+    public UserType UserType { get; } = UserType.User;
     
     public Agent? Agent { get; init; } 
 
